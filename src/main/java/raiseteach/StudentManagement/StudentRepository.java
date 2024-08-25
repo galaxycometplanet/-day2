@@ -3,14 +3,16 @@ package raiseteach.StudentManagement;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+import java.util.List;
 
 @Mapper
 public interface StudentRepository {
 
-    @Select("SELECT * FROM student WHERE name = #{name}")
-    Student searchByName(String name);
+    @Select("SELECT * FROM student_course")
+    List<Student> search();
 
-    @Insert("INSERT student values #{name}, #{age}")
-    void registerStudent(String name, int age);
+
 
 }
