@@ -36,7 +36,6 @@ public class StudentService {
                 .collect(Collectors.toList());
     }
 
-
     public List<Integer> extractAgesFromStudentFolderList() {
         // 全体の抽出から年齢のみをリストに入れる
         return repository.search()
