@@ -16,8 +16,10 @@ public class StudentFolder {
     private String address;
     private int age;
     private String gender;
+    private String remark;
+    private String isDeleted;
 
-public int getAge() {
-    return age;
-}
+    public int getAge() {
+        return age;
+    }
 }
