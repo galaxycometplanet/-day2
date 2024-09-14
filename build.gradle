@@ -30,6 +30,8 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//thymeleaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	//便利機能、スターゆーてぃりティー
 	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.14.0'
 	//Lombok
