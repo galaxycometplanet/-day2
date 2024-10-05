@@ -19,7 +19,14 @@ public class StudentFolder {
     private String remark;
     private String isDeleted;
 
-    public int getAge() {
-        return age;
-    }
+//    public int getAge() {
+//        return age;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//        public void setName(String name) {
+//            this.name = name;
+//    }
 }
