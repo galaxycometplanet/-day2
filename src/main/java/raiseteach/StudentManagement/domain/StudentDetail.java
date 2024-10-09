@@ -12,8 +12,8 @@ import java.util.List;
 @Setter
 public class StudentDetail {
 
-    // 複数の StudentFolder を保持するリスト
-    private List<StudentFolder> studentFolder;
+    // 単一の StudentFolder を保持する
+    private StudentFolder studentFolder;
 
     // 複数の StudentCourse を保持するリスト
     private List<StudentCourse> studentCourse;

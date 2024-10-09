@@ -1,6 +1,8 @@
 package raiseteach.StudentManagement;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 import raiseteach.StudentManagement.data.StudentCourse;
@@ -19,6 +21,10 @@ public interface StudentRepository {
 
     @Select("SELECT * FROM student_folder where age > 30")
     List<StudentFolder> searchover();
+
+    @Insert("INSERT INTO students VALUES(#{name},#{namemini}, #{penname},#{maleaddress},#{address},#{age}, #{gender},#{remark} ,false)")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    void registerStudent(StudentFolder student);
 
 
 

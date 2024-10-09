@@ -42,8 +42,6 @@ public class StudentController {
 
 
 
-
-
     @GetMapping("/StudentCourseList")
     public List<StudentCourse> getStudentCourseList() {
         return service.searchStudentCourseList();
@@ -67,6 +65,7 @@ public class StudentController {
             System.out.println("StudentFolderがnullです。");
         }
 
+        service.registerStudent(studentDetail);
         return "redirect:/StudentList";
     }
 }
