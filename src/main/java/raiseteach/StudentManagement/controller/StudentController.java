@@ -35,17 +35,30 @@ public class StudentController {
     public String getStudentList(Model model) {
         List<StudentFolder> studentFolders = service.searchStudentFolderList();
         List<StudentCourse> studentCourses = service.searchStudentCourseList();
-        model.addAttribute("studentList", converter.convertStudentDetails(studentFolders, studentCourses));
 
+        // データの確認用ログ出力
+        System.out.println("Student Folders: " + studentFolders);
+        System.out.println("Student Courses: " + studentCourses);
+
+        // 空データの場合はエラーメッセージを表示
+        if (studentFolders.isEmpty()) {
+            System.out.println("StudentFolderのデータが空です。");
+        }
+
+        model.addAttribute("studentList", converter.convertStudentDetails(studentFolders, studentCourses));
         return "studentList";
     }
 
 
 
+
     @GetMapping("/StudentCourseList")
-    public List<StudentCourse> getStudentCourseList() {
-        return service.searchStudentCourseList();
+    public String getStudentCourseList(Model model) {
+        List<StudentCourse> courses = service.searchStudentCourseList();
+        model.addAttribute("courseList", courses);
+        return "studentCourseList";  // studentCourseList.html を表示
     }
+
 
     @GetMapping("/newStudent")
     public String newStudent(Model model) {
