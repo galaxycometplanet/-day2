@@ -34,10 +34,7 @@ public class StudentService {
 
     public List<StudentFolder> searchStudentFolderList() {
         // 年齢30以上の学生フォルダーを抽出
-        return repository.search()
-                .stream()
-                .filter(folder -> folder.getAge() >= 30)  // age が30以上のものをフィルタリング
-                .collect(Collectors.toList());
+        return repository.search();
     }
 
     public List<Integer> extractAgesFromStudentFolderList() {

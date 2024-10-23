@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import raiseteach.StudentManagement.controller.converter.StudentConverter;
 import raiseteach.StudentManagement.data.StudentCourse;
 import raiseteach.StudentManagement.data.StudentFolder;
@@ -45,6 +46,7 @@ public class StudentController {
             System.out.println("StudentFolderのデータが空です。");
         }
 
+
         model.addAttribute("studentList", converter.convertStudentDetails(studentFolders, studentCourses));
         return "studentList";
     }
@@ -66,19 +68,14 @@ public class StudentController {
         return "registerStudent";
     }
 
-    @GetMapping("/registerStudent")
+    @PostMapping("/registerStudent")
     public String registerStudent(@ModelAttribute StudentDetail studentDetail, BindingResult result) {
         if (result.hasErrors()) {
             return "registerStudent";
         }
+        System.out.println(studentDetail.getStudentFolder().getName() + "さんが新規受講生として登録されました。");
 
-        if (studentDetail.getStudentFolder() != null) {
-            System.out.println(studentDetail.getStudentFolder().getName() + "さんが新規受講生として登録されました。");
-        } else {
-            System.out.println("StudentFolderがnullです。");
-        }
 
-        service.registerStudent(studentDetail);
-        return "redirect:/StudentList";
+        return "redirect:/studentList";
     }
 }
