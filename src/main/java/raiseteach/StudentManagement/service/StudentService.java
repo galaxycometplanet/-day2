@@ -2,17 +2,22 @@ package raiseteach.StudentManagement.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import raiseteach.StudentManagement.StudentRepository;
 import raiseteach.StudentManagement.data.StudentCourse;
 import raiseteach.StudentManagement.data.StudentFolder;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.stream.Collectors;
 import raiseteach.StudentManagement.data.StudentFolder;
+import raiseteach.StudentManagement.domain.StudentDetail;
 
 
 @Service
 public class StudentService {
+
+    private static final Logger logger = LoggerFactory.getLogger(StudentService.class);
 
     private StudentRepository repository;
 
@@ -27,13 +32,9 @@ public class StudentService {
     }
 
 
-
     public List<StudentFolder> searchStudentFolderList() {
         // 年齢30以上の学生フォルダーを抽出
-        return repository.search()
-                .stream()
-                .filter(folder -> folder.getAge() >= 30)  // age が30以上のものをフィルタリング
-                .collect(Collectors.toList());
+        return repository.search();
     }
 
     public List<Integer> extractAgesFromStudentFolderList() {
@@ -42,5 +43,11 @@ public class StudentService {
                 .stream()
                 .map(StudentFolder::getAge)  // StudentFolder から age を抽出
                 .collect(Collectors.toList());
+    }
+
+
+    @Transactional
+    public void registerStudent(StudentDetail studentDetail) {
+        repository.registerStudent(studentDetail.getStudentFolder());
     }
 }
