@@ -16,6 +16,7 @@ import raiseteach.StudentManagement.data.StudentFolder;
 import raiseteach.StudentManagement.data.StudentCourse;
 
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -64,7 +65,9 @@ public class StudentController {
 
     @GetMapping("/newStudent")
     public String newStudent(Model model) {
-        model.addAttribute("studentDetail", new StudentDetail());
+        StudentDetail studentDetail = new StudentDetail();
+        studentDetail.setStudentCourse(Arrays.asList(new StudentCourse()));
+        model.addAttribute("studentDetail",studentDetail);
         return "registerStudent";
     }
 

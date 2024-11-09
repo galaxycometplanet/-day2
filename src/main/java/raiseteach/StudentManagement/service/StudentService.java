@@ -8,6 +8,8 @@ import raiseteach.StudentManagement.data.StudentCourse;
 import raiseteach.StudentManagement.data.StudentFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import raiseteach.StudentManagement.data.StudentFolder;
@@ -50,5 +52,12 @@ public class StudentService {
     public void registerStudent(StudentDetail studentDetail) {
         repository.registerStudent(studentDetail.getStudentFolder());
         //TODO:コース情報登録も行う
+        for(StudentCourse studentCourses:studentDetail.getStudentCourse()) {
+            studentCourses.setDatamineID(studentDetail.getStudentFolder().getId());
+            studentCourses.setStart(LocalDateTime.now());
+            studentCourses.setEnd(LocalDateTime.now().plusYears(1));
+
+            repository.registerStudentsCourses(studentCourses);
+        }
     }
 }

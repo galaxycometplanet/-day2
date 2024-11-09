@@ -28,6 +28,11 @@ public interface StudentRepository {
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void registerStudent(StudentFolder student);
 
+    @Insert("INSERT INTO student_course(datamineID,coursename,start,end)"
+    + "VALUES(#{datamineID}, #{coursename}, #{start}, #{end})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    void registerStudentsCourses(StudentCourse studentCourse);
+
 
 
 }
