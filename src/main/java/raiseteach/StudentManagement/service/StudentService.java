@@ -49,5 +49,6 @@ public class StudentService {
     @Transactional
     public void registerStudent(StudentDetail studentDetail) {
         repository.registerStudent(studentDetail.getStudentFolder());
+        //TODO:コース情報登録も行う
     }
 }
