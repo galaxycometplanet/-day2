@@ -30,8 +30,19 @@ public class StudentService {
 
     public List<StudentCourse> searchStudentCourseList() {
         // コース情報のみ絞り込み
-        return repository.searchStudentCourse();
+        return repository.searchStudentCourseList();
+
     }
+
+    public StudentDetail searchStudent(String id){
+       StudentFolder studentFolder =  repository.searchStudent(id);
+       List<StudentCourse> StudentCourse = repository.searchStudentCourse(studentFolder.getId());
+       StudentDetail studentDetail = new StudentDetail();
+       studentDetail.setStudentFolder(studentFolder);
+       studentDetail.setStudentCourse(StudentCourse);
+return studentDetail;
+    };
+
 
 
     public List<StudentFolder> searchStudentFolderList() {
@@ -58,6 +69,14 @@ public class StudentService {
             studentCourses.setEnd(LocalDateTime.now().plusYears(1));
 
             repository.registerStudentsCourses(studentCourses);
+        }
+    }
+    @Transactional
+    public void updateStudent(StudentDetail studentDetail) {
+        repository.updateStudent(studentDetail.getStudentFolder());
+        //TODO:コース情報登録も行う
+        for(StudentCourse studentCourses:studentDetail.getStudentCourse()) {
+            repository.updateStudentsCourses(studentCourses);
         }
     }
 }
