@@ -23,19 +23,22 @@ import java.util.List;
 
 
 @Controller
-public class StudentController {
+public class StudentController
+{
 
     private final StudentService service;
     private final StudentConverter converter;
 
     @Autowired
-    public StudentController(StudentService service, StudentConverter converter) {
+    public StudentController(StudentService service, StudentConverter converter)
+    {
         this.service = service;
         this.converter = converter;
     }
 
     @GetMapping("/studentList")
-    public String getStudentList(Model model) {
+    public String getStudentList(Model model)
+    {
         List<StudentFolder> studentFolders = service.searchStudentFolderList();
         List<StudentCourse> studentCourses = service.searchStudentCourseList();
 
@@ -44,7 +47,8 @@ public class StudentController {
         System.out.println("Student Courses: " + studentCourses);
 
         // 空データの場合はエラーメッセージを表示
-        if (studentFolders.isEmpty()) {
+        if (studentFolders.isEmpty())
+        {
             System.out.println("StudentFolderのデータが空です。");
         }
 
@@ -57,7 +61,8 @@ public class StudentController {
 
 
     @GetMapping("/StudentFolder/{id}")
-    public String getStudent(@PathVariable String id, Model model) {
+    public String getStudent(@PathVariable String id, Model model)
+    {
         StudentDetail studentDetail = service.searchStudent(id);
         model.addAttribute("studentDetail",studentDetail);
         return "updateStudent";
@@ -66,7 +71,8 @@ public class StudentController {
 
 
     @GetMapping("/newStudent")
-    public String newStudent(Model model) {
+    public String newStudent(Model model)
+    {
         StudentDetail studentDetail = new StudentDetail();
         studentDetail.setStudentCourse(Arrays.asList(new StudentCourse()));
         model.addAttribute("studentDetail",studentDetail);
@@ -74,12 +80,13 @@ public class StudentController {
     }
 
     @PostMapping("/registerStudent")
-    public String registerStudent(@ModelAttribute StudentDetail studentDetail, BindingResult result) {
-        if (result.hasErrors()) {
+    public String registerStudent(@ModelAttribute StudentDetail studentDetail, BindingResult result)
+    {
+        if (result.hasErrors())
+        {
             return "registerStudent";
         }
-        System.out.println
-                (studentDetail.getStudentFolder().getName() + "さんが新規受講生として登録されました。");
+        System.out.println(studentDetail.getStudentFolder().getName() + "さんが新規受講生として登録されました。");
 
         service.registerStudent(studentDetail);
         return "redirect:/studentList";
@@ -87,16 +94,17 @@ public class StudentController {
 
 
 
-@PostMapping("/updateStudent")
-public String updateStudent(@ModelAttribute StudentDetail studentDetail, BindingResult result) {
-    if (result.hasErrors()) {
-        return "updateStudent";
-    }
-    System.out.println
-            (studentDetail.getStudentFolder().getName() + "さんが更新受講生として登録されました。");
+    @PostMapping("/updateStudent")
+    public String updateStudent(@ModelAttribute StudentDetail studentDetail, BindingResult result)
+    {
+        if (result.hasErrors())
+        {
+            return "updateStudent";
+        }
+        System.out.println(studentDetail.getStudentFolder().getName() + "さんが更新受講生として登録されました。");
 
     service.updateStudent(studentDetail);
     return "redirect:/studentList";
+    }
 }
-            }
 

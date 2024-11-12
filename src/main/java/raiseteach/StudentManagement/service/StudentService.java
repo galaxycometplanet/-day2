@@ -17,40 +17,46 @@ import raiseteach.StudentManagement.domain.StudentDetail;
 
 
 @Service
-public class StudentService {
+public class StudentService
+{
 
     private static final Logger logger = LoggerFactory.getLogger(StudentService.class);
 
     private StudentRepository repository;
 
     @Autowired
-    public StudentService(StudentRepository repository) {
+    public StudentService(StudentRepository repository)
+    {
         this.repository = repository;
     }
 
-    public List<StudentCourse> searchStudentCourseList() {
+    public List<StudentCourse> searchStudentCourseList()
+    {
         // コース情報のみ絞り込み
         return repository.searchStudentCourseList();
 
     }
 
-    public StudentDetail searchStudent(String id){
+    public StudentDetail searchStudent(String id)
+    {
        StudentFolder studentFolder =  repository.searchStudent(id);
        List<StudentCourse> StudentCourse = repository.searchStudentCourse(studentFolder.getId());
        StudentDetail studentDetail = new StudentDetail();
        studentDetail.setStudentFolder(studentFolder);
        studentDetail.setStudentCourse(StudentCourse);
-return studentDetail;
+       return studentDetail;
     };
 
 
 
-    public List<StudentFolder> searchStudentFolderList() {
+    public List<StudentFolder> searchStudentFolderList()
+    {
         // 年齢30以上の学生フォルダーを抽出
         return repository.search();
     }
 
-    public List<Integer> extractAgesFromStudentFolderList() {
+    public List<Integer> extractAgesFromStudentFolderList()
+    {
         // 全体の抽出から年齢のみをリストに入れる
         return repository.search()
                 .stream()
@@ -60,10 +66,12 @@ return studentDetail;
 
 
     @Transactional
-    public void registerStudent(StudentDetail studentDetail) {
+    public void registerStudent(StudentDetail studentDetail)
+    {
         repository.registerStudent(studentDetail.getStudentFolder());
         //TODO:コース情報登録も行う
-        for(StudentCourse studentCourses:studentDetail.getStudentCourse()) {
+        for(StudentCourse studentCourses:studentDetail.getStudentCourse())
+        {
             studentCourses.setDatamineID(studentDetail.getStudentFolder().getId());
             studentCourses.setStart(LocalDateTime.now());
             studentCourses.setEnd(LocalDateTime.now().plusYears(1));
@@ -71,11 +79,15 @@ return studentDetail;
             repository.registerStudentsCourses(studentCourses);
         }
     }
+
     @Transactional
-    public void updateStudent(StudentDetail studentDetail) {
+    public void updateStudent(StudentDetail studentDetail)
+    {
         repository.updateStudent(studentDetail.getStudentFolder());
         //TODO:コース情報登録も行う
-        for(StudentCourse studentCourses:studentDetail.getStudentCourse()) {
+        for(StudentCourse studentCourses:studentDetail.getStudentCourse())
+        {
+            studentCourses.setDatamineID(studentDetail.getStudentFolder().getId());
             repository.updateStudentsCourses(studentCourses);
         }
     }

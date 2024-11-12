@@ -24,7 +24,7 @@
     <tr th:each="studentDetail : ${studentList}">
         <td th:text="${studentDetail.studentFolder.id}">1</td>
         <td>
-            <a th:href="@{/StudentFolder/{id}(id=${studentDetail.studentFolder.id})}" th:text="${studentDetail.studentFolder.name}">山田</a>
+            <a href="/studentList" th:href="@{/StudentFolder/{id}(id=${studentDetail.studentFolder.id})}" th:text="${studentDetail.studentFolder.name}">山田</a>
 
         <td th:text="${studentDetail.studentFolder.namemini}">Fukuzawa</td>
         <td th:text="${studentDetail.studentFolder.penname}">1mannenn</td>

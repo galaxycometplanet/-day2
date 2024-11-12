@@ -1,7 +1,8 @@
 package raiseteach.StudentManagement;
 
-import org.apache.ibatis.annotations.*;
 
+
+import org.apache.ibatis.annotations.*;
 import raiseteach.StudentManagement.data.StudentCourse;
 import raiseteach.StudentManagement.data.StudentFolder;
 
@@ -42,8 +43,7 @@ public interface StudentRepository {
                     + "age = #{age},gender =  #{gender},remark = #{remark} ,isDeleted = #{isDeleted} WHERE id = #{id}")
     void updateStudent(StudentFolder student);
 
-    @Update("UPDATE student_course SET coursename = #{coursename} WHERE id=#{id})"
-            + "VALUES(#{datamineID}, #{coursename}, #{start}, #{end})")
+    @Update("UPDATE student_course SET coursename = #{coursename} WHERE id=#{id}")
 
     void updateStudentsCourses(StudentCourse studentCourse);
 
