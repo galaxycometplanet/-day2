@@ -17,6 +17,7 @@ public interface StudentRepository {
     @Select("SELECT * FROM student_folder")
     List<StudentFolder> search();
 
+
     @Select("SELECT * FROM student_folder WHERE id =#{id}")
     StudentFolder searchStudent(String id);
 

@@ -32,7 +32,11 @@
         <td th:text="${studentDetail.studentFolder.address}">Fukuokakenn</td>
         <td th:text="${studentDetail.studentFolder.age}">25</td>
         <td th:text="${studentDetail.studentFolder.gender}">man</td>
-        <td th:text="${studentDetail.studentFolder.remark != null ? studentDetail.studentFolder.remark : ''}"></td>
+        <td th:text="${studentDetail.studentFolder.remark}">特になし</td>
+        <td>
+                <input type = "checkbox" th:checked="${studentDetail.studentFolder.isDeleted}">
+        </td>
+
     </tr>
     </tbody>
 </table>
