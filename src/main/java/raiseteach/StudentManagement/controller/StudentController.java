@@ -17,33 +17,48 @@ import raiseteach.StudentManagement.data.StudentCourse;
 
 import java.util.Arrays;
 import java.util.List;
-
-
-
+/**
+ * 受講生の検索や登録、更新などを行うREST APIとして実行されるControllerです。
+ */
 @RestController
-public class StudentController
-{
+public class StudentController {
 
     private final StudentService service;
-    private final StudentConverter converter;
+
 
     @Autowired
-    public StudentController(StudentService service, StudentConverter converter)
-    {
+    public StudentController(StudentService service) {
         this.service = service;
-        this.converter = converter;
+
     }
+
+    /**
+     * 受講生一覧検索です。（誰にもけて書いているか）
+     * 全体検索を行うので、要件指定は行わないものとします。
+     *
+     * @return受講生一覧、全件数
+     */
 
     @GetMapping("/studentList")
-    public List<StudentDetail> getStudentList()
-    {
-        List<StudentFolder> studentFolders = service.searchStudentFolderList();
-        List<StudentCourse> studentCourses = service.searchStudentCourseList();
+    public List<StudentDetail> getStudentList() {
 
-        return converter.convertStudentDetails(studentFolders, studentCourses);
+
+        return service.searchStudentFolderList();
     }
 
+    /**
+     * 受講生検索です。
+     * IDに紐づく任意の受講生の情報を取得します。
+     * @param id 受講生ID
+     * @param model 受講生
+     * @return
+     */
 
+
+    @GetMapping("/StudentFolder/{id}")
+    public StudentDetail getStudentFolder(@PathVariable String id, Model model) {
+        return service.searchStudent(id);
+    }
 
 
 
@@ -57,16 +72,11 @@ public class StudentController
     }
 
     @PostMapping("/registerStudent")
-    public String registerStudent(@ModelAttribute StudentDetail studentDetail, BindingResult result)
-    {
-        if (result.hasErrors())
-        {
-            return "registerStudent";
-        }
+    public ResponseEntity<StudentDetail> registerStudent(@RequestBody StudentDetail studentDetail) {
         System.out.println(studentDetail.getStudentFolder().getName() + "さんが新規受講生として登録されました。");
 
-        service.registerStudent(studentDetail);
-        return "redirect:/studentList";
+       StudentDetail responseStudentDetail = service.registerStudent(studentDetail);
+        return ResponseEntity.ok(responseStudentDetail);
     }
 
 

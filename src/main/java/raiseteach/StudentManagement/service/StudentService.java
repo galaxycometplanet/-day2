@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import raiseteach.StudentManagement.StudentRepository;
+import raiseteach.StudentManagement.controller.converter.StudentConverter;
 import raiseteach.StudentManagement.data.StudentCourse;
 import raiseteach.StudentManagement.data.StudentFolder;
 import org.slf4j.Logger;
@@ -15,48 +16,59 @@ import java.util.stream.Collectors;
 import raiseteach.StudentManagement.data.StudentFolder;
 import raiseteach.StudentManagement.domain.StudentDetail;
 
+/**
+ * 受講生情報を取り扱うサービスです。
+ * 受講生の検索や登録・更新処理を行います。
+ */
 
 @Service
-public class StudentService
-{
+public class StudentService {
 
     private static final Logger logger = LoggerFactory.getLogger(StudentService.class);
 
     private StudentRepository repository;
+    private StudentConverter converter;
 
     @Autowired
-    public StudentService(StudentRepository repository)
-    {
+    public StudentService(StudentRepository repository, StudentConverter converter) {
         this.repository = repository;
+        this.converter = converter;
     }
 
-    public List<StudentCourse> searchStudentCourseList()
-    {
-        // コース情報のみ絞り込み
-        return repository.searchStudentCourseList();
 
-    }
 
-    public StudentDetail searchStudent(String id)
-    {
+    /**
+     * 受講生検索です。
+     * IDに紐づく任意の受講生の情報を取得します。
+     * @param id 受講生ID
+     * @return 受講生
+     */
+
+    public StudentDetail searchStudent(String id) {
        StudentFolder studentFolder =  repository.searchStudent(id);
        List<StudentCourse> StudentCourse = repository.searchStudentCourse(studentFolder.getId());
-       StudentDetail studentDetail = new StudentDetail();
-       studentDetail.setStudentFolder(studentFolder);
-       studentDetail.setStudentCourse(StudentCourse);
-       return studentDetail;
+
+
+       return new StudentDetail(studentFolder, StudentCourse);
     };
 
+    /**
+     * 受講生一覧検索です。
+     * 全権検索を行うので、じょうほう検索は行いません
+     *
+     * 受講生一覧（全権）
+     * @return
+     */
 
-
-    public List<StudentFolder> searchStudentFolderList()
-    {
-        // 年齢30以上の学生フォルダーを抽出
-        return repository.search();
+    public List<StudentDetail> searchStudentFolderList() {
+        List<StudentFolder> studentlist = repository.search();
+        List<StudentCourse> studentCourses = repository.searchStudentCourseList();
+        repository.searchStudentCourseList();
+        return converter.convertStudentDetails(studentlist, studentCourses);
     }
 
-    public List<Integer> extractAgesFromStudentFolderList()
-    {
+
+    public List<Integer> extractAgesFromStudentFolderList() {
         // 全体の抽出から年齢のみをリストに入れる
         return repository.search()
                 .stream()
@@ -66,7 +78,7 @@ public class StudentService
 
 
     @Transactional
-    public void registerStudent(StudentDetail studentDetail)
+    public StudentDetail registerStudent(StudentDetail studentDetail)
     {
         repository.registerStudent(studentDetail.getStudentFolder());
         //TODO:コース情報登録も行う
@@ -78,6 +90,7 @@ public class StudentService
 
             repository.registerStudentsCourses(studentCourses);
         }
+        return studentDetail;
     }
 
     @Transactional

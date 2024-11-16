@@ -1,7 +1,9 @@
 
 package raiseteach.StudentManagement.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import raiseteach.StudentManagement.data.StudentCourse;
 import raiseteach.StudentManagement.data.StudentFolder;
@@ -10,6 +12,8 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class StudentDetail {
 
     // 単一の StudentFolder を保持する
