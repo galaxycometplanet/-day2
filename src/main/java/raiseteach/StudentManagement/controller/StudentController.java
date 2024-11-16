@@ -46,6 +46,7 @@ public class StudentController
 
 
 
+
     @GetMapping("/newStudent")
     public String newStudent(Model model)
     {
