@@ -37,8 +37,9 @@ public class StudentService {
 
 
 
+
     /**
-     * 受講生検索です。
+     * 受講生詳細検索です。
      * IDに紐づく任意の受講生の情報を取得します。
      * @param id 受講生ID
      * @return 受講生
@@ -53,10 +54,10 @@ public class StudentService {
     };
 
     /**
-     * 受講生一覧検索です。
+     * 受講生詳細一覧検索です。
      * 全権検索を行うので、じょうほう検索は行いません
      *
-     * 受講生一覧（全権）
+     * 受講生詳細一覧（全権）
      * @return
      */
 
@@ -76,32 +77,53 @@ public class StudentService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * 受講生詳細の登録を行います。受講生と受講生コース情報を個別に入力し、受講生コース情報には受講生情報を紐づける値とコースを選定します。
+     *
+     * @param studentDetail　受講生詳細
+     * @return 登録情報を付与した受講生詳細
+     */
 
     @Transactional
     public StudentDetail registerStudent(StudentDetail studentDetail)
     {
-        repository.registerStudent(studentDetail.getStudentFolder());
+        StudentFolder studentFolder = studentDetail.getStudentFolder();
+        repository.registerStudent(studentFolder);
         //TODO:コース情報登録も行う
         for(StudentCourse studentCourses:studentDetail.getStudentCourse())
         {
-            studentCourses.setDatamineID(studentDetail.getStudentFolder().getId());
-            studentCourses.setStart(LocalDateTime.now());
-            studentCourses.setEnd(LocalDateTime.now().plusYears(1));
+            initStudentCourse(studentCourses, studentFolder);
 
             repository.registerStudentsCourses(studentCourses);
         }
         return studentDetail;
     }
 
+    /**
+     * 受講生コース情報を登録する際の初期設定を登録する。
+     * @param studentCourses 受講生コース情報
+     * @param studentFolder 受講生
+     */
+    private static void initStudentCourse(StudentCourse studentCourses, StudentFolder studentFolder) {
+        LocalDateTime now = LocalDateTime.now();
+        studentCourses.setDatamineID(studentFolder.getId());
+
+        studentCourses.setStart(now);
+        studentCourses.setEnd(now.plusYears(1));
+    }
+
+    /**
+     * 受講生詳細の更新を行います。
+     * 受講生の情報と受講生コースそれぞれ更新します。
+     * @param studentDetail 受講生詳細
+     */
     @Transactional
-    public void updateStudent(StudentDetail studentDetail)
-    {
+    public void updateStudent(StudentDetail studentDetail) {
         repository.updateStudent(studentDetail.getStudentFolder());
         //TODO:コース情報登録も行う
-        for(StudentCourse studentCourses:studentDetail.getStudentCourse())
-        {
+        studentDetail.getStudentCourse().forEach(studentCourses -> {
             studentCourses.setDatamineID(studentDetail.getStudentFolder().getId());
             repository.updateStudentsCourses(studentCourses);
-        }
+        });
     }
 }

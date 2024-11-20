@@ -60,17 +60,25 @@ public class StudentController {
         return service.searchStudent(id);
     }
 
-
+    /**
+     *
+     * @param model
+     * @return
+     */
 
     @GetMapping("/newStudent")
-    public String newStudent(Model model)
-    {
+    public String newStudent(Model model) {
         StudentDetail studentDetail = new StudentDetail();
         studentDetail.setStudentCourse(Arrays.asList(new StudentCourse()));
         model.addAttribute("studentDetail",studentDetail);
         return "registerStudent";
     }
 
+    /**
+     * 受講生詳細の更新を行います。キャンセルフラグの更新もここで行います。
+     * @param studentDetail 受講生詳細
+     * @return 実行結果
+     */
     @PostMapping("/registerStudent")
     public ResponseEntity<StudentDetail> registerStudent(@RequestBody StudentDetail studentDetail) {
         System.out.println(studentDetail.getStudentFolder().getName() + "さんが新規受講生として登録されました。");
@@ -81,9 +89,8 @@ public class StudentController {
 
 
 
-    @PostMapping("/updateStudent")
-    public ResponseEntity<String> updateStudent(@RequestBody StudentDetail studentDetail, BindingResult result)
-    {
+    @PutMapping("/updateStudent")
+    public ResponseEntity<String> updateStudent(@RequestBody StudentDetail studentDetail, BindingResult result) {
     service.updateStudent(studentDetail);
     return ResponseEntity.ok("更新処理が成功しました。");
     }

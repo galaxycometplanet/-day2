@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="raiseteach.StudentManagement.StudentRepository">
+
+    <!--  受講生の全件検索-->
+    <select id="search" resultType="raiseteach.StudentManagement.data.StudentFolder">
+        SELECT *
+        FROM student_folder;
+    </select>
+
+
+    <!--  受講生の検索-->
+    <select id="searchStudent" resultType="raiseteach.StudentManagement.data.StudentFolder">
+        SELECT *
+        FROM student_folder
+        WHERE id = #{id};
+    </select>
+
+</mapper>
