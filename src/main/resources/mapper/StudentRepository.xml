@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="raiseteach.StudentManagement.StudentRepository">
+<mapper namespace="raiseteach.StudentManagement.repository.StudentRepository">
 
     <!--  受講生の全件検索-->
     <select id="search" resultType="raiseteach.StudentManagement.data.StudentFolder">
@@ -16,4 +16,85 @@
         WHERE id = #{id};
     </select>
 
-</mapper>
+    <!-- 受講生コース情報の全体検索-->
+    <select id="searchStudentCourseList" resultType="raiseteach.StudentManagement.data.StudentCourse">
+        SELECT *
+        FROM student_course
+
+    </select>
+
+    <!-- 受講生コース情報の検索-->
+    <select id="searchStudentCourse" resultType="raiseteach.StudentManagement.data.StudentCourse">
+        SELECT *
+        FROM student_course
+        WHERE datamineID =#{datamineID};
+    </select>
+
+
+        <!-- Insert 文
+         @Insert(
+            "INSERT INTO student_folder(name,namemini,penname,maleaddress,address,age,gender,remark,isDeleted)"
+                    + " VALUES(#{name},#{namemini}, #{penname},#{maleaddress},#{address},#{age}, #{gender},#{remark} ,false)")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+       -->
+        <insert id="registerStudent" parameterType="raiseteach.StudentManagement.data.StudentFolder">
+            INSERT INTO student_folder (name, namemini, penname, maleaddress, address, age, gender, remark, isDeleted)
+            VALUES (#{name}, #{namemini}, #{penname}, #{maleaddress}, #{address}, #{age}, #{gender}, #{remark}, false)
+        </insert>
+
+        <!-- Update 文
+        @Update(
+    "UPDATE student_folder SET name = #{name},namemini = #{namemini},penname = #{penname},maleaddress = #{maleaddress},address = #{address},"
+    + "age = #{age},gender =  #{gender},remark = #{remark} ,isDeleted = #{isDeleted} WHERE id = #{id}")-->
+        <update id="updateStudent" parameterType="raiseteach.StudentManagement.data.StudentFolder">
+            UPDATE student_folder
+            SET name = #{name},
+            namemini = #{namemini},
+            penname = #{penname},
+            maleaddress = #{maleaddress},
+            address = #{address},
+            age = #{age},
+            gender = #{gender},
+            remark = #{remark},
+            isDeleted = #{isDeleted}
+            WHERE id = #{id}
+        </update>
+
+    <!-- student_course テーブルにデータを登録
+        @Insert("INSERT INTO student_course(datamineID,coursename,start,end)"
+            + "VALUES(#{datamineID}, #{coursename}, #{start}, #{end})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")-->
+    <insert id="registerStudentsCourses" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO student_course (datamineID, coursename, start, end)
+        VALUES (#{datamineID}, #{coursename}, #{start}, #{end})
+    </insert>
+
+    <!-- student_folder テーブルのデータを更新 -
+    ->
+    <update id="updateStudent">
+        UPDATE student_folder
+        SET
+        name = #{name},
+        namemini = #{namemini},
+        penname = #{penname},
+        maleaddress = #{maleaddress},
+        address = #{address},
+        age = #{age},
+        gender = #{gender},
+        remark = #{remark},
+        isDeleted = #{isDeleted}
+        WHERE id = #{id}
+    </update>
+
+    <!- student_course テーブルのコース名を更新
+     @Update("UPDATE student_course SET coursename = #{coursename} WHERE id=#{id}")-->
+    <update id="updateStudentsCourses">
+        UPDATE student_course
+        SET coursename = #{coursename}
+        WHERE id = #{id}
+    </update>
+
+    </mapper>
+
+
+

@@ -1,10 +1,15 @@
 package raiseteach.StudentManagement.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
 import org.springframework.web.bind.annotation.*;
 import raiseteach.StudentManagement.controller.converter.StudentConverter;
 import raiseteach.StudentManagement.data.StudentCourse;
@@ -20,6 +25,7 @@ import java.util.List;
 /**
  * 受講生の検索や登録、更新などを行うREST APIとして実行されるControllerです。
  */
+@Validated
 @RestController
 public class StudentController {
 
@@ -56,7 +62,9 @@ public class StudentController {
 
 
     @GetMapping("/StudentFolder/{id}")
-    public StudentDetail getStudentFolder(@PathVariable String id, Model model) {
+    public StudentDetail getStudentFolder(
+            @PathVariable @NotBlank @Pattern(regexp = "^\\d+$") String id, Model model) {
+
         return service.searchStudent(id);
     }
 
@@ -80,7 +88,7 @@ public class StudentController {
      * @return 実行結果
      */
     @PostMapping("/registerStudent")
-    public ResponseEntity<StudentDetail> registerStudent(@RequestBody StudentDetail studentDetail) {
+    public ResponseEntity<StudentDetail> registerStudent(@RequestBody @Valid StudentDetail studentDetail) {
         System.out.println(studentDetail.getStudentFolder().getName() + "さんが新規受講生として登録されました。");
 
        StudentDetail responseStudentDetail = service.registerStudent(studentDetail);
@@ -90,7 +98,7 @@ public class StudentController {
 
 
     @PutMapping("/updateStudent")
-    public ResponseEntity<String> updateStudent(@RequestBody StudentDetail studentDetail, BindingResult result) {
+    public ResponseEntity<String> updateStudent(@RequestBody @Valid StudentDetail studentDetail, BindingResult result) {
     service.updateStudent(studentDetail);
     return ResponseEntity.ok("更新処理が成功しました。");
     }

@@ -3,7 +3,7 @@ package raiseteach.StudentManagement.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import raiseteach.StudentManagement.StudentRepository;
+import raiseteach.StudentManagement.repository.StudentRepository;
 import raiseteach.StudentManagement.controller.converter.StudentConverter;
 import raiseteach.StudentManagement.data.StudentCourse;
 import raiseteach.StudentManagement.data.StudentFolder;
@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-import raiseteach.StudentManagement.data.StudentFolder;
+
 import raiseteach.StudentManagement.domain.StudentDetail;
 
 /**
