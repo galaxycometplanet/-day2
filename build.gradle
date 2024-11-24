@@ -36,7 +36,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     //Validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-
+//OpenAPI Generator
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
 
 	//便利機能、スターゆーてぃりティー
 	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.14.0'

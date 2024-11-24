@@ -1,5 +1,8 @@
 package raiseteach.StudentManagement.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,7 +52,7 @@ public class StudentController {
      *
      * @return受講生一覧、全件数
      */
-
+    @Operation(summary = "一覧検索", description = "受講生の一覧を検索します",responses = {@ApiResponse(responseCode = "400", content = @Content())})
     @GetMapping("/studentList")
     public List<StudentDetail> getStudentList() throws TestException {
 throw new TestException("エラーが発生しました。");
