@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>受講生情報一覧</title>
+</head>
+<body>
+<h1>受講生情報一覧</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>名前</th>
+        <th>カナ名</th>
+        <th>ニックネーム</th>
+        <th>メールアドレス</th>
+        <th>地域</th>
+        <th>年齢</th>
+        <th>性別</th>
+        <th>備考</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="studentDetail : ${studentList}">
+        <td th:text="${studentDetail.studentFolder.id}">1</td>
+        <td>
+            <a href="/studentList" th:href="@{/StudentFolder/{id}(id=${studentDetail.studentFolder.id})}" th:text="${studentDetail.studentFolder.name}">山田</a>
+
+        <td th:text="${studentDetail.studentFolder.namemini}">Fukuzawa</td>
+        <td th:text="${studentDetail.studentFolder.penname}">1mannenn</td>
+        <td th:text="${studentDetail.studentFolder.maleaddress}">meiji@gakumon.jp</td>
+        <td th:text="${studentDetail.studentFolder.address}">Fukuokakenn</td>
+        <td th:text="${studentDetail.studentFolder.age}">25</td>
+        <td th:text="${studentDetail.studentFolder.gender}">man</td>
+        <td th:text="${studentDetail.studentFolder.remark}">特になし</td>
+        <td>
+                <input type = "checkbox" th:checked="${studentDetail.studentFolder.isDeleted}">
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
