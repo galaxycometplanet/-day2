@@ -14,7 +14,7 @@ import jakarta.validation.constraints.Pattern;
 public class StudentFolder {
 
 @NotBlank
-@Pattern(regexp = "^\\d+$")
+@Pattern(regexp = "^\\d+$", message = "数字のみ入力するようにしてください")
     private String id;
 
 @NotBlank
