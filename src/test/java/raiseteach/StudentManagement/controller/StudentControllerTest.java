@@ -62,7 +62,7 @@ class StudentControllerTest {
 
         Set<ConstraintViolation<StudentFolder>> violations = validator.validate(student);
 
-        assertThat(violations.size()).isEqualTo(0);
+        assertThat(violations.size()).isEqualTo(1);
         assertThat(violations).extracting("message").containsOnly("数字のみ入力するようにしてください");
 
     }
