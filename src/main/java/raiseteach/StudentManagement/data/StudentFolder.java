@@ -2,44 +2,43 @@ package raiseteach.StudentManagement.data;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.validation.annotation.Validated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.Setter;
 
 @Schema(description = "受講生")
 @Getter
 @Setter
 public class StudentFolder {
 
-@NotBlank
-@Pattern(regexp = "^\\d+$")
+    @NotBlank
+    @Pattern(regexp = "^\\d+$", message = "数字のみ入力するようにしてください")
     private String id;
 
-@NotBlank
+    @NotBlank
     private String name;
 
-@NotBlank
+    @NotBlank
     private String namemini;
 
-@NotBlank
+    @NotBlank
     private String penname;
 
-@NotBlank
-@Email
+    @NotBlank
+    @Email
     private String maleaddress;
 
-@NotBlank
+    @NotBlank
     private String address;
-
 
     private int age;
 
-@NotBlank
+    @NotBlank
     private String gender;
 
     private String remark;
+
     private String isDeleted;
 
 //    public int getAge() {
@@ -49,7 +48,8 @@ public class StudentFolder {
 //    public String getName() {
 //        return name;
 //    }
-//        public void setName(String name) {
-//            this.name = name;
+//
+//    public void setName(String name) {
+//        this.name = name;
 //    }
 }
