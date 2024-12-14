@@ -87,8 +87,7 @@ public class StudentService {
      */
 
     @Transactional
-    public StudentDetail registerStudent(StudentDetail studentDetail)
-    {
+    public StudentDetail registerStudent(StudentDetail studentDetail) {
         StudentFolder studentFolder = studentDetail.getStudentFolder();
         repository.registerStudent(studentFolder);
         //TODO:コース情報登録も行う
