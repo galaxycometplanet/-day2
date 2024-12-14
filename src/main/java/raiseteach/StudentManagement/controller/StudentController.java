@@ -76,10 +76,10 @@ public class StudentController {
      * @return ビュー名
      */
     @GetMapping( "/newStudent" )
-    public String newStudent( Model model ) {
+    public String newStudent(Model model) {
         StudentDetail studentDetail = new StudentDetail();
-        studentDetail.setStudentCourse( Arrays.asList( new StudentCourse() ) );
-        model.addAttribute( "studentDetail", studentDetail );
+        studentDetail.setStudentCourseList( Arrays.asList( new StudentCourse() ) );
+        model.addAttribute("studentDetail",studentDetail);
         return "registerStudent";
     }
 

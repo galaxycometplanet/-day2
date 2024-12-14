@@ -25,8 +25,7 @@ public class StudentDetail {
 
     // 複数の StudentCourse を保持するリスト
     @Valid
-    private List<StudentCourse> studentCourse;
-
+    private List<StudentCourse> studentCourseList;
 
 
     // Lombok が自動で getter と setter を生成するため、以下は不要
