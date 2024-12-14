@@ -39,7 +39,7 @@ public class StudentConverter {
                     .filter(studentCourse -> studentFolder.getId().equals(studentCourse.getId()))
                     .collect(Collectors.toList());
 
-            studentDetail.setStudentCourse(convertStudentCourse);
+            studentDetail.setStudentCourseList(convertStudentCourse);
             studentDetails.add(studentDetail);
         }
         return studentDetails;

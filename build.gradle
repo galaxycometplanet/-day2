@@ -34,7 +34,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	//thymeleaf
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    //Validation
+	//Validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 //OpenAPI Generator
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
@@ -46,17 +46,25 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 
 
-
-
 	//MySQLドライバー
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	//Mybatis
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 
+	//APサーバー
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+	//SpringBoot Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	//MyBatis Test
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+
+	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+//H2
+	testImplementation 'com.h2database:h2:2.2.224'
+
 }
 
 tasks.named('test') {

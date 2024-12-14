@@ -16,6 +16,7 @@ import java.util.List;
 @Mapper
 public interface StudentRepository {
 
+
     /**
      * 受講生の検索を行います。
      *
