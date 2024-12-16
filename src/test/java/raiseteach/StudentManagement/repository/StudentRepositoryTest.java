@@ -16,13 +16,12 @@ class StudentRepositoryTest {
      @Autowired
      private StudentRepository sut;
 
-
-
      @Test
      void 受講生の全権検索が行えること() {
         List<StudentFolder> actual = sut.search();
          assertThat(actual.size()).isEqualTo(5);
       }
+
     @Test
     void 受講生の登録が完璧に行えること(){
         List<StudentFolder> actual = sut.search();
@@ -42,12 +41,12 @@ class StudentRepositoryTest {
         student.setGender("男性");
         student.setRemark("");
 
-         sut.registerStudent(student);
+        sut.registerStudent(student);
 
-         List<StudentFolder> actual = sut.search();
+        List<StudentFolder> actual = sut.search();
 
-         assertThat(actual.size()).isEqualTo(6);
+        assertThat(actual.size()).isEqualTo(6);
     }
-     }
+}
 
 
