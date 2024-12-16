@@ -65,20 +65,21 @@ public class StudentConverterTest {
         student.setGender("男性");
         student.setRemark("");
 
-        StudentCourse studentcourse = new StudentCourse();
-        studentcourse.setId("2");
-        studentcourse.setDatamineID("2");
-        studentcourse.getCoursename("Physics");
-        studentcourse.getStart(LocalDateTime.now());
-        studentcourse.getEnd(LocalDateTime.now().plusYears(1));
+        StudentCourse studentCourse = new StudentCourse();
+        studentCourse.setId("2");
+        studentCourse.setDatamineID("2");
+        studentCourse.getCoursename("Physics");
+        studentCourse.getStart(LocalDateTime.now());
+        studentCourse.getEnd(LocalDateTime.now().plusYears(1));
 
         List<StudentFolder> studentList = List.of(student);
-        List<StudentCourse> studentCourseList = List.of(studentcourse);
+        List<StudentCourse> studentCourseList = List.of(studentCourse);
 
         List<StudentDetail> actual = sut.convertStudentDetails(studentList, studentCourseList);
 
         assertThat(actual.get(0).getStudentFolder()).isEqualTo(student);
         assertThat(actual.get(0).getStudentCourseList()).isEmpty();
     }
+
 
 }

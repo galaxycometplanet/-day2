@@ -91,7 +91,7 @@ public class StudentService {
         StudentFolder studentFolder = studentDetail.getStudentFolder();
         repository.registerStudent(studentFolder);
         //TODO:コース情報登録も行う
-        for(StudentCourse studentCourses:studentDetail.getStudentCourse())
+        for(StudentCourse studentCourses:studentDetail.getStudentCourseList())
         {
             initStudentCourse(studentCourses, studentFolder);
 
@@ -122,7 +122,7 @@ public class StudentService {
     public void updateStudent(StudentDetail studentDetail) {
         repository.updateStudent(studentDetail.getStudentFolder());
         //TODO:コース情報登録も行う
-        studentDetail.getStudentCourse().forEach(studentCourses -> {
+        studentDetail.getStudentCourseList().forEach(studentCourses -> {
             studentCourses.setDatamineID(studentDetail.getStudentFolder().getId());
             repository.updateStudentsCourses(studentCourses);
         });

@@ -25,5 +25,6 @@ public class StudentCourse {
     }
 
     public void getEnd(LocalDateTime localDateTime) {
+
     }
 }
